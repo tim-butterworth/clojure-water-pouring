@@ -1,16 +1,6 @@
 (ns water-pouring.core
   (:require [water-pouring.pour-helper :refer :all]))
 
-(def capacities (list 3 5 7))
-(defn build-cup [capacity]
-  {:capacity capacity
-   :volume-used 0})
-(def goal 4)
-(def state (reduce (fn [accume capacity]
-                     (assoc accume capacity (build-cup capacity)))
-                   {}
-                   capacities))
-
 (defn update-state [volume-used-fn key state]
   (let [entry (state key)]
     (assoc state key
@@ -108,3 +98,18 @@
                  :moves []}]
         visited #{state}]
     (iterating-solve states visited target)))
+
+;;Example
+
+(def capacities (list 3 5 7))
+(defn build-cup [capacity]
+  {:capacity capacity
+   :volume-used 0})
+(def goal 4)
+(def state (reduce
+            (fn [accume capacity]
+              (assoc accume capacity (build-cup capacity)))
+            {}
+            capacities))
+
+;; (solve state goal)
